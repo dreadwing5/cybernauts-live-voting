@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Q and A</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="primary-heading">Coffee with Code | Live Q and A</h1>
+        </div>
+        <input type="text" class="form-input" name="session-id" id="session-id" placeholder="Enter Code">
+        <button class="btn btn-center" onclick="login()">Join Now</button>
+    </div>
+
+</body>
+<script>
+    // Create WebSocket connection.
+    const socket = new WebSocket('ws://localhost:3000');
+
+    // Connection opened
+    socket.addEventListener('open', function (event) {
+        console.log('Connected to WS Server')
+    });
+
+    // Listen for messages
+    socket.addEventListener('message', function (event) {
+        console.log('Message from server ', event.data);
+    });
+
+    const sendMessage = () => {
+        socket.send(1);
+    }
+    const login = async () => {
+        try {
+            const body = {
+                code: '123456'
+            }
+            const token = localStorage.getItem('token');
+            if (token) {
+                body.token = token;
+            }
+            const response = await fetch('/join', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            const data = await response.json();
+            if (data) {
+                localStorage.setItem('token', data);
+            }
+            window.location.href = '/poll';
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+</script>
+
+</html>

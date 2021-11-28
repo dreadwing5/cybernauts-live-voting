@@ -1,0 +1,21 @@
+{
+  "name": "cybernauts-live-voting",
+  "version": "1.0.0",
+  "description": "Live Voting using websocket",
+  "main": "index.js",
+  "author": "dreadwing5 <sachinspyk@outlook.com>",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "start:prod": "NODE_ENV=production nodemon server.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "uuid": "^8.3.2",
+    "ws": "^8.3.0"
+  }
+}
